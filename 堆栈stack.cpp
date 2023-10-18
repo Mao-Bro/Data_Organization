@@ -1,151 +1,151 @@
-//#include <iostream>
-//#include <stdlib.h>
-//
-//using namespace std;
-//
-//class linear_stack {	//ÏßĞÔ¶ÑÕ»
-//public:
-//	linear_stack() {	//¶ÑÕ»ÎŞ²Î¹¹Ôìº¯Êı£¬Ä¬ÈÏÈİÁ¿Îª2
-//		this->size = 2;
-//		this->bottom = (int*)malloc(3 * sizeof(int));
-//		this->top = bottom;
-//		if (this->top && this->bottom) {
-//			cout << "¶ÑÕ»´´½¨³É¹¦" << endl;
-//		}
-//	}
-//
-//	linear_stack(int _size) {	//¶ÑÕ»º¬²Î¹¹Ôìº¯Êı£¬²ÎÊıÎª¶ÑÕ»×î´óÈİÁ¿
-//		this->size = _size;
-//		this->bottom = (int*)malloc(this->size * sizeof(int));
-//		this->top = bottom;
-//		if (this->top && this->bottom) {
-//			cout << "¶ÑÕ»´´½¨³É¹¦" << endl;
-//		}
-//	}
-//
-//	bool full() {
-//		if (this->size == (top - bottom)) return true;
-//		else return false;
-//	}
-//
-//	bool empty() {
-//		if (this->top == this->bottom) return true;
-//		return false;
-//	}
-//
-//	void push(int _val) {
-//		if (this->full()) {		//µ±Ç°µÄ¶ÑÕ»ÒÑ¾­ÂúÁË£¬ÎÒÃÇ²ÉÓÃ¼Ó±¶À©Èİ²ßÂÔ£¬¶ÔÆäÀ©Èİ£»
-//			int* _bottom = (int*)malloc(2 * this->size * sizeof(int));
-//			int* _top = _bottom + 1;
-//
-//			for (int* ptr = this->bottom; ptr <= this->top; ptr++, _top++) *_top = *ptr;
-//
-//			this->bottom = _bottom;
-//			this->top = _top - 1;
-//			this->size = 2 * this->size;
-//
-//			_top = nullptr;
-//			_bottom = nullptr;
-//		}
-//		//µ±Ç°µÄ¶ÑÕ»Ã»ÓĞÂú£¬»òÕßËµÒÑ¾­Íê³ÉÁË¼Ó±¶À©Èİ£¬ÎÒÃÇÖ±½ÓÑ¹ÈëÊı¾İ£»
-//		this->top++;
-//		*this->top = _val;
-//	}
-//
-//	void pop() {
-//		if (this->empty()) cout << "µ±Ç°¶ÑÕ»Îª¿Õ£¬ÎŞ·¨ÊµÏÖµ¯Õ»²Ù×÷" << endl;
-//		else this->top--;
-//	}
-//
-//	int peek() {
-//		if (this->empty()) {
-//			cout << "µ±Ç°¶ÑÕ»Îª¿Õ£¬ÎŞ·¨È¡µÃÕ»¶¥ÔªËØ" << endl;
-//			return -1;
-//		}
-//		else return *this->top;
-//	}
-//
-//	void clear() {	//Çå¿Õ¶ÑÕ»µ±ÖĞµÄËùÓĞÔªËØ
-//		this->top = this->bottom;
-//	}
-//
-//private:
-//	int size;		//sizeÓÃÀ´¼ÇÂ¼µ±Ç°¶ÑÕ»µÄÔªËØ×î´óÈİÁ¿£¬ÎÒÃÇ²»ĞèÒª¼ÇÂ¼µ±Ç°µÄÔªËØÊıÄ¿£¬top-bottom¼´¿É£»
-//	int* bottom;	//¶¨ÒåbottomÎªÕ»µ×Ö¸Õë£»
-//	int* top;		//¶¨ÒåtopÎªÕ»¶¥Ö¸Õë£»
-//};
-//
-//struct Node {
-//	int val;
-//	struct Node* next;
-//
-//	Node(): val(0) , next(nullptr) { }
-//	Node(int _val): val(_val) , next(nullptr) { }
-//};
-//
-//class link_stack {
-//public:
-//	link_stack() {
-//		this->head = new Node();
-//		this->top = this->head;
-//		this->_size = 0;
-//		cout << "¶ÑÕ»´´½¨³É¹¦" << endl;
-//	}
-//
-//	int size() {
-//		return this->_size;
-//	}
-//
-//	bool empty() {
-//		if (this->_size == 0) return true;
-//		return false;
-//	}
-//
-//	void clear() {
-//		this->_size = 0;
-//		this->head->next = nullptr;
-//		this->top = this->head;
-//	}
-//
-//	void push(int _val) {
-//		struct Node* newNode = new Node(_val);
-//		this->top->next = newNode;
-//		this->top = newNode;
-//		this->_size++;
-//
-//		newNode = nullptr;
-//		delete(newNode);
-//	}
-//
-//	void pop() {
-//		if (this->empty()) cout << "µ±Ç°¶ÑÕ»Îª¿Õ£¬ÎŞ·¨ÊµÏÖµ¯Õ»²Ù×÷" << endl;
-//		else {
-//			struct Node* ptr = this->head;
-//			while (ptr->next != this->top) ptr = ptr->next;
-//			ptr->next = nullptr;
-//			this->top = ptr;
-//			this->_size--;
-//
-//			ptr = nullptr;
-//			delete(ptr);
-//		}
-//	}
-//
-//	int peek() {
-//		if (this->empty()) {
-//			cout << "µ±Ç°¶ÑÕ»Îª¿Õ£¬ÎŞ·¨ÊµÏÖÈ¡Õ»¶¥²Ù×÷" << endl;
-//			return -1;
-//		}
-//		return this->top->val;
-//	}
-//
-//private:
-//	struct Node* head;	//¼ÈÊÇÁ´±íµÄÉÚ±øÍ·½Úµã£¬ÓÖÊÇ¶ÑÕ»µÄµ×½Úµã£»
-//	struct Node* top;	//Á´±íµ±ÖĞµÄÎ²²¿½Úµã£¬ÊÇ¶ÑÕ»µÄÕ»¶¥½Úµã£»
-//	int _size;			//ÓÃÓÚ¼ÇÂ¼µ±Ç°¶ÑÕ»µ±ÖĞº¬ÓĞ¶àÉÙÔªËØ£¬ÓÉÓÚÊÇÁ´Ê½Õ»£¬Òò´ËÃ»ÓĞ×î´óÈİÁ¿Ò»Ëµ£»
-//};
-//
-//int main(void) {
-//	/*ÔÚÕâÀï¿ÉÒÔÌí¼ÓÄãµÄ²âÊÔ³ÌĞò*/
-//	return 0;
-//}
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+class linear_stack {	//çº¿æ€§å †æ ˆ
+public:
+	linear_stack() {	//å †æ ˆæ— å‚æ„é€ å‡½æ•°ï¼Œé»˜è®¤å®¹é‡ä¸º2
+		this->size = 2;
+		this->bottom = (int*)malloc(3 * sizeof(int));
+		this->top = bottom;
+		if (this->top && this->bottom) {
+			cout << "å †æ ˆåˆ›å»ºæˆåŠŸ" << endl;
+		}
+	}
+
+	linear_stack(int _size) {	//å †æ ˆå«å‚æ„é€ å‡½æ•°ï¼Œå‚æ•°ä¸ºå †æ ˆæœ€å¤§å®¹é‡
+		this->size = _size;
+		this->bottom = (int*)malloc(this->size * sizeof(int));
+		this->top = bottom;
+		if (this->top && this->bottom) {
+			cout << "å †æ ˆåˆ›å»ºæˆåŠŸ" << endl;
+		}
+	}
+
+	bool full() {
+		if (this->size == (top - bottom)) return true;
+		else return false;
+	}
+
+	bool empty() {
+		if (this->top == this->bottom) return true;
+		return false;
+	}
+
+	void push(int _val) {
+		if (this->full()) {		//å½“å‰çš„å †æ ˆå·²ç»æ»¡äº†ï¼Œæˆ‘ä»¬é‡‡ç”¨åŠ å€æ‰©å®¹ç­–ç•¥ï¼Œå¯¹å…¶æ‰©å®¹ï¼›
+			int* _bottom = (int*)malloc(2 * this->size * sizeof(int));
+			int* _top = _bottom + 1;
+
+			for (int* ptr = this->bottom; ptr <= this->top; ptr++, _top++) *_top = *ptr;
+
+			this->bottom = _bottom;
+			this->top = _top - 1;
+			this->size = 2 * this->size;
+
+			_top = nullptr;
+			_bottom = nullptr;
+		}
+		//å½“å‰çš„å †æ ˆæ²¡æœ‰æ»¡ï¼Œæˆ–è€…è¯´å·²ç»å®Œæˆäº†åŠ å€æ‰©å®¹ï¼Œæˆ‘ä»¬ç›´æ¥å‹å…¥æ•°æ®ï¼›
+		this->top++;
+		*this->top = _val;
+	}
+
+	void pop() {
+		if (this->empty()) cout << "å½“å‰å †æ ˆä¸ºç©ºï¼Œæ— æ³•å®ç°å¼¹æ ˆæ“ä½œ" << endl;
+		else this->top--;
+	}
+
+	int peek() {
+		if (this->empty()) {
+			cout << "å½“å‰å †æ ˆä¸ºç©ºï¼Œæ— æ³•å–å¾—æ ˆé¡¶å…ƒç´ " << endl;
+			return -1;
+		}
+		else return *this->top;
+	}
+
+	void clear() {	//æ¸…ç©ºå †æ ˆå½“ä¸­çš„æ‰€æœ‰å…ƒç´ 
+		this->top = this->bottom;
+	}
+
+private:
+	int size;		//sizeç”¨æ¥è®°å½•å½“å‰å †æ ˆçš„å…ƒç´ æœ€å¤§å®¹é‡ï¼Œæˆ‘ä»¬ä¸éœ€è¦è®°å½•å½“å‰çš„å…ƒç´ æ•°ç›®ï¼Œtop-bottomå³å¯ï¼›
+	int* bottom;	//å®šä¹‰bottomä¸ºæ ˆåº•æŒ‡é’ˆï¼›
+	int* top;		//å®šä¹‰topä¸ºæ ˆé¡¶æŒ‡é’ˆï¼›
+};
+
+struct Node {
+	int val;
+	struct Node* next;
+
+	Node(): val(0) , next(nullptr) { }
+	Node(int _val): val(_val) , next(nullptr) { }
+};
+
+class link_stack {
+public:
+	link_stack() {
+		this->head = new Node();
+		this->top = this->head;
+		this->_size = 0;
+		cout << "å †æ ˆåˆ›å»ºæˆåŠŸ" << endl;
+	}
+
+	int size() {
+		return this->_size;
+	}
+
+	bool empty() {
+		if (this->_size == 0) return true;
+		return false;
+	}
+
+	void clear() {
+		this->_size = 0;
+		this->head->next = nullptr;
+		this->top = this->head;
+	}
+
+	void push(int _val) {
+		struct Node* newNode = new Node(_val);
+		this->top->next = newNode;
+		this->top = newNode;
+		this->_size++;
+
+		newNode = nullptr;
+		delete(newNode);
+	}
+
+	void pop() {
+		if (this->empty()) cout << "å½“å‰å †æ ˆä¸ºç©ºï¼Œæ— æ³•å®ç°å¼¹æ ˆæ“ä½œ" << endl;
+		else {
+			struct Node* ptr = this->head;
+			while (ptr->next != this->top) ptr = ptr->next;
+			ptr->next = nullptr;
+			this->top = ptr;
+			this->_size--;
+
+			ptr = nullptr;
+			delete(ptr);
+		}
+	}
+
+	int peek() {
+		if (this->empty()) {
+			cout << "å½“å‰å †æ ˆä¸ºç©ºï¼Œæ— æ³•å®ç°å–æ ˆé¡¶æ“ä½œ" << endl;
+			return -1;
+		}
+		return this->top->val;
+	}
+
+private:
+	struct Node* head;	//æ—¢æ˜¯é“¾è¡¨çš„å“¨å…µå¤´èŠ‚ç‚¹ï¼Œåˆæ˜¯å †æ ˆçš„åº•èŠ‚ç‚¹ï¼›
+	struct Node* top;	//é“¾è¡¨å½“ä¸­çš„å°¾éƒ¨èŠ‚ç‚¹ï¼Œæ˜¯å †æ ˆçš„æ ˆé¡¶èŠ‚ç‚¹ï¼›
+	int _size;			//ç”¨äºè®°å½•å½“å‰å †æ ˆå½“ä¸­å«æœ‰å¤šå°‘å…ƒç´ ï¼Œç”±äºæ˜¯é“¾å¼æ ˆï¼Œå› æ­¤æ²¡æœ‰æœ€å¤§å®¹é‡ä¸€è¯´ï¼›
+};
+
+int main(void) {
+	/*åœ¨è¿™é‡Œå¯ä»¥æ·»åŠ ä½ çš„æµ‹è¯•ç¨‹åº*/
+	return 0;
+}
